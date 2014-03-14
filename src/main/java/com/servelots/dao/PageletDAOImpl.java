@@ -7,16 +7,17 @@ import org.hibernate.Session;
 
 public class PageletDAOImpl {
 
-    public void create(Pagelet pagelet) {
+    public Long create(Pagelet pagelet) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
-        session.save(pagelet);
+        Long pageletId  = (Long) session.save(pagelet);
 
         session.getTransaction().commit();
+        return pageletId;
     }
 
-    public Pagelet read(String Id) {
+    public Pagelet read(Long Id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 

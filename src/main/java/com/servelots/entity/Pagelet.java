@@ -7,16 +7,16 @@ import javax.persistence.Id;
 
 @Entity
 public class Pagelet {
-    private String id;
+    private Long id;
 
     private String title;
 
     @Id
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -24,29 +24,60 @@ public class PageletDAOImplTest {
     @Test
     public void testCreate() throws Exception {
         Pagelet pagelet = new Pagelet();
-        pagelet.setId("1");
+        pagelet.setId(1L);
 
-        pageletDAO.create(pagelet);
+        Long returnedId = pageletDAO.create(pagelet);
+        Assert.assertEquals(pagelet.getId(), returnedId);
+
+        //Clean up the data
+        pageletDAO.delete(pagelet);
     }
 
     @Test
     public void testRead() throws Exception {
-        Pagelet pagelet = pageletDAO.read("1");
-        Assert.assertEquals(pagelet.getId(), "1");
+        //Setup the pagelet data.
+        Pagelet createdPagelet = new Pagelet();
+        createdPagelet.setId(1L);
+
+        pageletDAO.create(createdPagelet);
+
+        //Read the pagelet
+        Pagelet pagelet = pageletDAO.read(1L);
+        Assert.assertEquals(pagelet.getId(), Long.valueOf(1));
+
+        //Clean up the data
+        pageletDAO.delete(pagelet);
    }
 
-    @Test
-    public void testUpdate() throws Exception {
-        Pagelet pagelet = new Pagelet();
-        pagelet.setId("1");
-        pagelet.setTitle("Title 1");
 
-        pageletDAO.update(pagelet);
+   /* @Test
+    public void testUpdate() throws Exception {
+        //Setup the pagelet data.
+        Pagelet testPagelet = new Pagelet();
+        testPagelet.setId(2L);
+        pageletDAO.create(testPagelet);
+
+        //Read the pagelet
+        Pagelet toBeUpdatedPagelet = pageletDAO.read(2L);
+        toBeUpdatedPagelet.setTitle("Title 1");
+
+        pageletDAO.update(toBeUpdatedPagelet);
+
+        //Clean up the data
+        //pageletDAO.delete(testPagelet);
+    }*/
+
+    @Test
+    public void testDelete() throws Exception {
+        //Setup the pagelet data.
+        Pagelet testPagelet = new Pagelet();
+        testPagelet.setId(1L);
+        pageletDAO.create(testPagelet);
+
+        //Delete the pagelet and test
+        pageletDAO.delete(testPagelet);
+
+        //Assert.assertNull(pageletDAO.read(testPagelet.getId()));
     }
 
-    /*@Test
-    public void testDelete() throws Exception {
-        Pagelet pagelet = pageletDAO.read("1");
-        pageletDAO.delete(pagelet);
-    }*/
 }
